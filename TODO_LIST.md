@@ -8,3 +8,4 @@
 - [] Add game item
 - [] Add more enemies
 - [] Add new game level
+- [] Add asteroid 

@@ -86,17 +86,17 @@ function love.update(dt)
     if game.state.running then
         player:movePlayer(dt)
 
-        -- CHECK ASTEROIDS EXPLOADING
+        -- CHECK ASTEROIDS EXPLODING
         for ast_index, asteroid in pairs(asteroids) do
-            if not player.exploading and not player.invincible then
+            if not player.exploding and not player.invincible then
                 if Global.calculateDistance(player.x, player.y, asteroid.x, asteroid.y) < asteroid.radius + player.radius then
-                    player:expload()
+                    player:explode()
                     Global.destroy_asteroid = true
                 end
             else
-                player.expload_time = player.expload_time - 1
+                player.explode_time = player.explode_time - 1
 
-                if player.expload_time == 0 then
+                if player.explode_time == 0 then
                     if player.lives - 1 <= 0 then
                         game:changeGameState("ended")
                         return
@@ -109,7 +109,7 @@ function love.update(dt)
             -- CHECK LASERS DESTROY ASTEROIDS
             for _, laser in pairs(player.lasers) do
                 if Global.calculateDistance(laser.x, laser.y, asteroid.x, asteroid.y) < asteroid.radius then
-                    laser:expload()
+                    laser:explode()
                     asteroid:destroy(asteroids, ast_index, game)
                 end
             end
@@ -117,7 +117,7 @@ function love.update(dt)
             -- CHECK DESTROY ASTEROID
             if Global.destroy_asteroid then
                 if player.lives - 1 <= 0 then
-                    if player.expload_time == 0 then
+                    if player.explode_time == 0 then
                         Global.destroy_asteroid = false
                         asteroid:destroy(asteroids, ast_index, game)
                     end

@@ -4,7 +4,7 @@ local Laser = require "objects.Laser"
 
 function Player(num_lives, sfx)
     local SHIP_SIZE = 30
-    local EXPLOAD_DUR = 3
+    local EXPLODE_DUR = 3
     local VIEW_ANGLE = math.rad(90)
     local LASER_DISTANCE = 0.6
     local MAX_LASERS = 10
@@ -16,8 +16,8 @@ function Player(num_lives, sfx)
         radius = SHIP_SIZE / 2,
         angle = VIEW_ANGLE,
         rotation = 0,
-        expload_time = 0,
-        exploading = false,
+        explode_time = 0,
+        exploding = false,
         invincible = true,
         invincible_seen = true,
         time_blicked = USABLE_BLINKS,
@@ -85,7 +85,7 @@ function Player(num_lives, sfx)
             local y_pos = 30
 
             for i = 1, self.lives do
-                if self.exploading then
+                if self.exploding then
                     if i == self.lives then
                         love.graphics.setColor(1, 0, 0, opacity)
                     end
@@ -110,7 +110,7 @@ function Player(num_lives, sfx)
                 opacity = 0.2
             end
 
-            if not self.exploading then
+            if not self.exploding then
                 if self.thrusting then
                     if not self.thrust.big_flame then
                         self.thrust.flame = self.thrust.flame - 1 / love.timer.getFPS()
@@ -187,9 +187,9 @@ function Player(num_lives, sfx)
                 self.invincible_seen = false
             end
 
-            self.exploading = self.expload_time > 0
+            self.exploding = self.explode_time > 0
 
-            if not self.exploading then
+            if not self.exploding then
                 local FPS = love.timer.getFPS()
                 local friction = 0.7
 
@@ -210,7 +210,7 @@ function Player(num_lives, sfx)
                     sfx:playFX("thruster", "slow")
                 else
                     sfx:stopFX("thruster")
-                    
+
                     if self.thrust.x ~= 0 or self.thrust.y ~= 0 then
                         self.thrust.x = self.thrust.x - friction * self.thrust.x / FPS
                         self.thrust.y = self.thrust.y - friction * self.thrust.y / FPS
@@ -233,23 +233,23 @@ function Player(num_lives, sfx)
                 end
             end
 
-            -- EXPLOADING LASERS
+            -- EXPLODING LASERS
             for index, laser in pairs(self.lasers) do
-                if (laser.distance > LASER_DISTANCE * love.graphics.getWidth()) and (laser.exploading == 0) then
-                    laser:expload()
+                if (laser.distance > LASER_DISTANCE * love.graphics.getWidth()) and (laser.exploding == 0) then
+                    laser:explode()
                 end
 
-                if laser.exploading == 0 then
+                if laser.exploding == 0 then
                     laser:move()
-                elseif laser.exploading == 2 then
+                elseif laser.exploding == 2 then
                     self:destroyLaser(index)
                 end
             end
         end,
 
-        expload = function(self)
+        explode = function(self)
             sfx:playFX("ship_explosion")
-            self.expload_time = math.ceil(EXPLOAD_DUR * love.timer.getFPS())
+            self.explode_time = math.ceil(EXPLODE_DUR * love.timer.getFPS())
         end
     }
 end

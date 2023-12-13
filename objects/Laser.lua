@@ -2,7 +2,7 @@ local love = require "love"
 
 function Laser(x, y, angle)
     local LASER_SPEED = 500
-    local EXLOADING_DUR = 0.2
+    local EXLODING_DUR = 0.2
 
     return {
         x = x,
@@ -10,9 +10,9 @@ function Laser(x, y, angle)
         x_vel = LASER_SPEED * math.cos(angle) / love.timer.getFPS(),
         y_vel = -LASER_SPEED * math.sin(angle) / love.timer.getFPS(),
         distance = 0,
-        -- exploading: 0 = safe; 1 = exploading; 2 = done exploading
-        exploading = 0,
-        expload_time = 0,
+        -- exploding: 0 = safe; 1 = exploding; 2 = done exploding
+        exploding = 0,
+        explode_time = 0,
 
         draw = function(self, faded)
             local opacity = 1
@@ -20,8 +20,8 @@ function Laser(x, y, angle)
             if faded then
                 opacity = 0.2
             end
-            
-            if self.exploading < 1 then
+
+            if self.exploding < 1 then
                 love.graphics.setColor(1, 1, 1, opacity)
 
                 love.graphics.setPointSize(3)
@@ -40,8 +40,8 @@ function Laser(x, y, angle)
             self.x = self.x + self.x_vel
             self.y = self.y + self.y_vel
 
-            if self.expload_time > 0 then
-                self.exploading = 1
+            if self.explode_time > 0 then
+                self.exploding = 1
             end
 
             if self.x < 0 then
@@ -59,11 +59,11 @@ function Laser(x, y, angle)
             self.distance = self.distance + math.sqrt((self.x_vel ^ 2) + (self.y_vel ^ 2))
         end,
 
-        expload = function(self)
-            self.expload_time = math.ceil(EXLOADING_DUR * (love.timer.getFPS() / 100))
+        explode = function(self)
+            self.explode_time = math.ceil(EXLODING_DUR * (love.timer.getFPS() / 100))
 
-            if self.expload_time > EXLOADING_DUR then
-                self.exploading = 2
+            if self.explode_time > EXLODING_DUR then
+                self.exploding = 2
             end
         end
     }
