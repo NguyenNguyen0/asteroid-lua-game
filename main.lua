@@ -13,7 +13,7 @@ local reset_complete = false
 
 local function reset()
     local save_data = Global.readJSON("save")
-    Destroy_asteroid = false
+    Global.destroy_asteroid = false
 
     sfx = SFX()
     player = Player(2, sfx)
@@ -26,7 +26,6 @@ function love.load()
     mouse_x, mouse_y = 0, 0
 
     reset()
-    sfx:playBGM()
 end
 
 -- KEYBINDING
@@ -70,6 +69,19 @@ end
 
 function love.update(dt)
     mouse_x, mouse_y = love.mouse.getPosition()
+
+    -- BACKGROUND MUSIC HANDLE
+    if game.state.running and not Global.is_playing_bgm then
+        sfx:playBGM()
+        Global.is_playing_bgm = true
+    elseif game.state.running and Global.is_playing_bgm then
+        sfx:playBGM()
+    elseif game.state.paused then
+        sfx:pausedBGM()
+    elseif not game.state.running and not game.state.paused then
+        sfx:stopPlayBGM()
+        Global.is_playing_bgm = false
+    end
 
     if game.state.running then
         player:movePlayer(dt)

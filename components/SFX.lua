@@ -26,6 +26,18 @@ function SFX()
             end
         end,
 
+        pausedBGM = function (self)
+            if bgm:isPlaying() then
+                bgm:pause()
+            end
+        end,
+
+        stopPlayBGM = function (self)
+            if bgm:isPlaying() then
+                bgm:stop()
+            end
+        end,
+
         stopFX = function(self, effect)
             if effects[effect]:isPlaying() then
                 effects[effect]:stop()
