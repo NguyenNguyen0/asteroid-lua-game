@@ -16,7 +16,7 @@ local function reset()
     Global.destroy_asteroid = false
 
     sfx = SFX()
-    player = Player(2, sfx)
+    player = Player(3, sfx)
     game = Game(save_data, sfx)
     menu = Menu(game, player, sfx)
 end

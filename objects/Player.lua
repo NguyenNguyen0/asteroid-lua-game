@@ -8,7 +8,7 @@ function Player(num_lives, sfx)
     local VIEW_ANGLE = math.rad(90)
     local LASER_DISTANCE = 0.6
     local MAX_LASERS = 10
-    local USABLE_BLINKS = 10 * 2
+    local USABLE_BLINKS = 5 * 2
 
     return {
         x = love.graphics.getWidth() / 2,
