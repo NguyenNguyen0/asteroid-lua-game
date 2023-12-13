@@ -24,7 +24,7 @@ function Menu(game, player, sfx)
             "center",
             "h3",
             love.graphics.getWidth() / 3,
-            love.graphics.getHeight() * 0.25),
+            love.graphics.getHeight() * 0.4),
         Button(
             nil,
             nil,
@@ -35,7 +35,7 @@ function Menu(game, player, sfx)
             "center",
             "h3",
             love.graphics.getWidth() / 3,
-            love.graphics.getHeight() * 0.4),
+            love.graphics.getHeight() * 0.5),
         Button(
             funcs.quitGame,
             nil,
@@ -46,7 +46,7 @@ function Menu(game, player, sfx)
             "center",
             "h3",
             love.graphics.getWidth() / 3,
-            love.graphics.getHeight() * 0.55)
+            love.graphics.getHeight() * 0.6)
     }
 
     return {
@@ -58,7 +58,7 @@ function Menu(game, player, sfx)
             for name, button in pairs(buttons) do
                 if button:checkHover(mouse_x, mouse_y, 10) then
                     sfx:playFX("select", "single")
-                    
+
                     if clicked then
                         button:click()
                     end
@@ -76,6 +76,18 @@ function Menu(game, player, sfx)
         end,
 
         draw = function(self)
+            Text(
+                "ASTEROID GAME",
+                0,
+                love.graphics.getHeight() * 0.2,
+                "h1",
+                false,
+                false,
+                love.graphics.getWidth(),
+                "center",
+                1
+            ):draw()
+
             for _, button in pairs(buttons) do
                 button:draw()
             end
