@@ -58,7 +58,7 @@ function Player(num_lives, sfx)
                     self.angle
                 ))
 
-                sfx:playFX("laser")
+                sfx:playSFX("laser")
             end
         end,
 
@@ -207,9 +207,9 @@ function Player(num_lives, sfx)
                     self.thrust.x = self.thrust.x + self.thrust.speed * math.cos(self.angle) / FPS
                     self.thrust.y = self.thrust.y - self.thrust.speed * math.sin(self.angle) / FPS
 
-                    sfx:playFX("thruster", "slow")
+                    sfx:playSFX("thruster", "slow")
                 else
-                    sfx:stopFX("thruster")
+                    sfx:stopSFX("thruster")
 
                     if self.thrust.x ~= 0 or self.thrust.y ~= 0 then
                         self.thrust.x = self.thrust.x - friction * self.thrust.x / FPS
@@ -248,7 +248,7 @@ function Player(num_lives, sfx)
         end,
 
         explode = function(self)
-            sfx:playFX("ship_explosion")
+            sfx:playSFX("ship_explosion")
             self.explode_time = math.ceil(EXPLODE_DUR * love.timer.getFPS())
         end
     }

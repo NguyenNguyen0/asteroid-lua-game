@@ -2,7 +2,7 @@ local love = require "love"
 
 function SFX()
     local bgm_volume = 1
-    local effects_volume = 1 
+    local sfx_volume = 1 
 
     local bgm = love.audio.newSource("src/sounds/bgm.mp3", "stream")
     bgm:setVolume(bgm_volume)
@@ -18,10 +18,10 @@ function SFX()
 
     return {
         bgm_volume = bgm_volume,
-        effects_volume = effects_volume,
+        sfx_volume = sfx_volume,
         sfx_played = false,
 
-        setSXPlayed = function(self, isPlayed)
+        setSFXPlayed = function(self, isPlayed)
             self.sfx_played = isPlayed
         end,
 
@@ -52,7 +52,7 @@ function SFX()
         playSFX = function(self, effect, mode)
             if mode == "single" then
                 if not self.sfx_played then
-                    self:setFXPlayed(true)
+                    self:setSFXPlayed(true)
 
                     if not effects[effect]:isPlaying() then
                         effects[effect]:play()
@@ -63,7 +63,7 @@ function SFX()
                     effects[effect]:play()
                 end
             else
-                self:stopFX(effect)
+                self:stopSFX(effect)
 
                 effects[effect]:play()
             end
@@ -74,7 +74,7 @@ function SFX()
         end,
 
         getEffectVolume = function (self)
-            return self.effects_volume
+            return self.sfx_volume
         end,
 
         setBGMVolume = function (self, value)

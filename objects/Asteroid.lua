@@ -100,7 +100,7 @@ function Asteroids(x, y, ast_size, level, sfx)
                 game.high_score = game.score
             end
 
-            sfx:playFX("asteroid_explosion")
+            sfx:playSFX("asteroid_explosion")
             table.remove(asteroids, index)
         end
     }
