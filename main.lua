@@ -60,7 +60,7 @@ function love.mousepressed(x, y, button, istouch, presses)
         if game.state.running then
             player:shootLaser()
         else
-            clickedMouse = true
+            clicked_mouse = true
         end
     end
 end
@@ -136,8 +136,8 @@ function love.update(dt)
             game:startNewGame(player)
         end
     elseif game.state.menu then
-        menu:run(clickedMouse)
-        clickedMouse = false
+        menu:run(clicked_mouse)
+        clicked_mouse = false
 
         if not reset_complete then
             reset()
@@ -145,6 +145,9 @@ function love.update(dt)
         end
     elseif game.state.ended then
         reset_complete = false
+    elseif game.state.setting then
+        menu.setting:run(clicked_mouse)
+        clicked_mouse = false
     end
 end
 
@@ -162,6 +165,8 @@ function love.draw()
         menu:draw()
     elseif game.state.ended then
         game:draw()
+    elseif game.state.setting then
+        menu.setting:draw()
     end
 
     love.graphics.setColor(1, 1, 1, 1)

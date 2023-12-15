@@ -12,7 +12,8 @@ function Game(save_data, sfx)
             menu = true,
             paused = false,
             running = false,
-            ended = false
+            ended = false,
+            setting = false
         },
         score = 0,
         high_score = save_data["high_score"] or 0,
@@ -28,6 +29,7 @@ function Game(save_data, sfx)
             self.state.paused = state == "paused"
             self.state.running = state == "running"
             self.state.ended = state == "ended"
+            self.state.setting = state == "setting"
 
             if self.state.ended then
                 self:gameOver()
@@ -134,6 +136,7 @@ function Game(save_data, sfx)
                 )
             }
 
+            -- SPAWN ASTEROIDS
             for i = 1, num_asteroids + self.level do
                 local as_x, as_y
 

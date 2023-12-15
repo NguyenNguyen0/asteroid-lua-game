@@ -1,6 +1,7 @@
 local love = require "love"
 
 local Button = require "components.Button"
+local Setting = require "states.Setting"
 
 function Menu(game, player, sfx)
     local funcs = {
@@ -10,6 +11,10 @@ function Menu(game, player, sfx)
 
         quitGame = function()
             love.event.quit()
+        end,
+
+        settingGame = function()
+            game:changeGameState("setting")
         end
     }
 
@@ -26,7 +31,7 @@ function Menu(game, player, sfx)
             love.graphics.getWidth() / 3,
             love.graphics.getHeight() * 0.4),
         Button(
-            nil,
+            funcs.settingGame,
             nil,
             nil,
             love.graphics.getWidth() / 3,
@@ -50,6 +55,7 @@ function Menu(game, player, sfx)
     }
 
     return {
+        setting = Setting(nil, player, sfx),
         focused = "",
 
         run = function(self, clicked)
