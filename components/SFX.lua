@@ -1,8 +1,11 @@
 local love = require "love"
 
 function SFX()
+    local bgm_volume = 1
+    local effects_volume = 1 
+
     local bgm = love.audio.newSource("src/sounds/bgm.mp3", "stream")
-    bgm:setVolume(0.1)
+    bgm:setVolume(bgm_volume)
     bgm:setLooping(true)
 
     local effects = {
@@ -14,6 +17,8 @@ function SFX()
     }
 
     return {
+        bgm_volume = bgm_volume,
+        effects_volume = effects_volume,
         fx_played = false,
 
         setFXPlayed = function(self, isPlayed)
@@ -61,6 +66,25 @@ function SFX()
                 self:stopFX(effect)
 
                 effects[effect]:play()
+            end
+        end,
+
+        getBGMVolume = function (self)
+            return self.bgm_volume
+        end,
+
+        getEffectVolume = function (self)
+            return self.effects_volume
+        end,
+
+        setBGMVolume = function (self, value)
+            bgm:setVolume(value)
+        end,
+
+        setEffectVolume = function (self, value)
+            effects.select:setVolume(value)
+            for _, effect in pairs(effects) do
+                effect:setVolume(value)
             end
         end
     }
