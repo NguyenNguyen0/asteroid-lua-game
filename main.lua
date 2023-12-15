@@ -5,7 +5,6 @@ local love = require "love"
 local Player = require "objects.Player"
 local Game = require "states.Game"
 local Menu = require "states.Menu"
-local SFX = require "components.SFX"
 local Global = require "globals"
 
 math.randomseed(os.time())
@@ -15,13 +14,14 @@ local function reset()
     local save_data = Global.readJSON("save")
     Global.destroy_asteroid = false
 
-    sfx = SFX()
+    sfx = Global.sfx
     player = Player(3, sfx)
     game = Game(save_data, sfx)
     menu = Menu(game, player, sfx)
 end
 
 function love.load()
+    love.graphics.setBackgroundColor(0.7, 0.7, 0.7)
     love.mouse.setVisible(false)
     mouse_x, mouse_y = 0, 0
 
@@ -176,4 +176,6 @@ function love.draw()
     end
 
     love.graphics.print("FPS: " .. tostring(love.timer.getFPS()), 10, love.graphics.getHeight() - 30)
+    love.graphics.print("Sound: " .. tostring(sfx:getEffectVolume()), 100, love.graphics.getHeight() - 30)
+    love.graphics.print("Music: " .. tostring(sfx:getBGMVolume()), 200, love.graphics.getHeight() - 30)
 end

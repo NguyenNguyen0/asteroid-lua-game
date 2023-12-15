@@ -63,7 +63,7 @@ function Menu(game, player, sfx)
 
             for name, button in pairs(buttons) do
                 if button:checkHover(mouse_x, mouse_y, 10) then
-                    sfx:playFX("select", "single")
+                    sfx:playSFX("select", "single")
 
                     if clicked then
                         button:click()
@@ -74,7 +74,7 @@ function Menu(game, player, sfx)
                     button:setTextColor(0.8, 0.2, 0.2)
                 else
                     if self.focused == name then
-                        sfx:setFXPlayed(false)
+                        sfx:setSFXPlayed(false)
                     end
                     button:setTextColor(1, 1, 1)
                 end
