@@ -19,10 +19,10 @@ function SFX()
     return {
         bgm_volume = bgm_volume,
         effects_volume = effects_volume,
-        fx_played = false,
+        sfx_played = false,
 
-        setFXPlayed = function(self, isPlayed)
-            self.fx_played = isPlayed
+        setSXPlayed = function(self, isPlayed)
+            self.sfx_played = isPlayed
         end,
 
         playBGM = function(self)
@@ -43,15 +43,15 @@ function SFX()
             end
         end,
 
-        stopFX = function(self, effect)
+        stopSFX = function(self, effect)
             if effects[effect]:isPlaying() then
                 effects[effect]:stop()
             end
         end,
 
-        playFX = function(self, effect, mode)
+        playSFX = function(self, effect, mode)
             if mode == "single" then
-                if not self.fx_played then
+                if not self.sfx_played then
                     self:setFXPlayed(true)
 
                     if not effects[effect]:isPlaying() then
