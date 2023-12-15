@@ -81,7 +81,6 @@ function Button(func, text_color, button_color, width, height, text, text_align,
         getTextPos = function(self)
             return self.text_x, self.text_y
         end,
-
     }
 end
 
