@@ -7,6 +7,7 @@ Global = {
     destroy_asteroid = false,
     sfx = SFX(),
     is_playing_bgm = false,
+    high_score = 0,
 
     calculateDistance = function(x1, y1, x2, y2)
         return math.sqrt(((x2 - x1) ^ 2) + ((y2 - y1) ^ 2))
@@ -32,5 +33,7 @@ Global = {
         end
     end
 }
+
+Global.high_score = Global.readJSON("save").high_score
 
 return Global

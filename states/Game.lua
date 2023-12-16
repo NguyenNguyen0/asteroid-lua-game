@@ -16,7 +16,7 @@ function Game(save_data, sfx)
             setting = false
         },
         score = 0,
-        high_score = save_data["high_score"] or 0,
+        high_score = Global.high_score,
         screen_text = {},
         game_over = false,
 
