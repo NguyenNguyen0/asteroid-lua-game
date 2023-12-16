@@ -4,8 +4,8 @@ local Global = require "globals"
 
 function Setting(self, player, sfx)
     local funcs = {
-        home = function()
-            game:changeGameState("menu")
+        back = function()
+            game:changeGameState(Global.perviousState)
         end,
 
         resetHightScore = function ()
@@ -105,12 +105,12 @@ function Setting(self, player, sfx)
         ),
 
         Button(
-            funcs.home,
+            funcs.back,
             nil,
             nil,
             love.graphics.getWidth() / 3,
             50,
-            "Home",
+            "Back",
             "center",
             "h4",
             love.graphics.getWidth() / 3,

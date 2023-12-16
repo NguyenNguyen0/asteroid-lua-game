@@ -21,7 +21,7 @@ local function reset()
 end
 
 function love.load()
-    -- love.graphics.setBackgroundColor(0.7, 0.7, 0.7)
+    -- love.graphics.setBackgroundColor(0.2, 0.2, 0.2)
     love.mouse.setVisible(false)
     mouse_x, mouse_y = 0, 0
 
@@ -147,6 +147,9 @@ function love.update(dt)
         reset_complete = false
     elseif game.state.setting then
         menu.setting:run(clicked_mouse)
+        clicked_mouse = false
+    elseif game.state.paused then
+        game.pause_menu:run(clicked_mouse)
         clicked_mouse = false
     end
 end

@@ -8,6 +8,7 @@ Global = {
     sfx = SFX(),
     is_playing_bgm = false,
     high_score = 0,
+    perviousState = "menu",
 
     calculateDistance = function(x1, y1, x2, y2)
         return math.sqrt(((x2 - x1) ^ 2) + ((y2 - y1) ^ 2))

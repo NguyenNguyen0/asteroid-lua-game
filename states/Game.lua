@@ -4,8 +4,10 @@ local love = require "love"
 local Global = require "globals"
 local Text = require "components.Text"
 local Asteroids = require "objects.Asteroid"
+local Pause = require "states.Pause"
 
 function Game(save_data, sfx)
+    local pause_menu = Pause()
     return {
         level = 1,
         state = {
@@ -19,8 +21,9 @@ function Game(save_data, sfx)
         high_score = save_data,
         screen_text = {},
         game_over = false,
+        pause_menu = pause_menu,
 
-        saveGame = function (self)
+        saveGame = function(self)
             Global.writeJSON("save", { high_score = self.high_score })
             Global.high_score = self.high_score
         end,
@@ -32,6 +35,11 @@ function Game(save_data, sfx)
             self.state.ended = state == "ended"
             self.state.setting = state == "setting"
 
+            if state == "menu" then
+                Global.perviousState = state
+            elseif state == "paused" then
+                Global.perviousState = state
+            end
             if self.state.ended then
                 self:gameOver()
             end
@@ -60,7 +68,7 @@ function Game(save_data, sfx)
             local opacity = 1
 
             if faded then
-                opacity = 0.5
+                opacity = 0.8
             end
 
             for index, text in pairs(self.screen_text) do
@@ -100,16 +108,7 @@ function Game(save_data, sfx)
             ):draw()
 
             if faded then
-                Text(
-                    "PAUSED",
-                    0,
-                    love.graphics.getHeight() * 0.4,
-                    "h1",
-                    false,
-                    false,
-                    love.graphics.getWidth(),
-                    "center"
-                ):draw()
+                game.pause_menu:draw()
             end
         end,
 
