@@ -1,5 +1,5 @@
 local lunajson = require "lunajson"
-local SFX = require "SFX"
+local SFX = require "components.SFX"
 
 Global = {
     ASTEROID_SIZE = 100,
