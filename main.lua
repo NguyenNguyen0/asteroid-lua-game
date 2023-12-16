@@ -11,7 +11,7 @@ math.randomseed(os.time())
 local reset_complete = false
 
 local function reset()
-    local save_data = Global.readJSON("save")
+    local save_data = Global.high_score
     Global.destroy_asteroid = false
 
     sfx = Global.sfx
@@ -21,7 +21,7 @@ local function reset()
 end
 
 function love.load()
-    love.graphics.setBackgroundColor(0.7, 0.7, 0.7)
+    -- love.graphics.setBackgroundColor(0.7, 0.7, 0.7)
     love.mouse.setVisible(false)
     mouse_x, mouse_y = 0, 0
 
@@ -176,6 +176,4 @@ function love.draw()
     end
 
     love.graphics.print("FPS: " .. tostring(love.timer.getFPS()), 10, love.graphics.getHeight() - 30)
-    love.graphics.print("Sound: " .. tostring(sfx:getEffectVolume()), 100, love.graphics.getHeight() - 30)
-    love.graphics.print("Music: " .. tostring(sfx:getBGMVolume()), 200, love.graphics.getHeight() - 30)
 end
