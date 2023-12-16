@@ -1,12 +1,9 @@
 local love = require "love"
 
 function SFX()
-    local bgm_volume = 1
-    local sfx_volume = 1 
-
     local bgm = love.audio.newSource("src/sounds/bgm.mp3", "stream")
-    bgm:setVolume(bgm_volume)
-    bgm:setLooping(true)
+    bgm:setVolume(1)
+    bgm:setLooping(true) 
 
     local effects = {
         ship_explosion = love.audio.newSource("src/sounds/explosion_player.ogg", "static"),
@@ -16,9 +13,11 @@ function SFX()
         thruster = love.audio.newSource("src/sounds/thruster_loud.ogg", "static"),
     }
 
+    for _, effect in pairs(effects) do
+        effect:setVolume(1)
+    end
+
     return {
-        bgm_volume = bgm_volume,
-        sfx_volume = sfx_volume,
         sfx_played = false,
 
         setSFXPlayed = function(self, isPlayed)
@@ -70,11 +69,11 @@ function SFX()
         end,
 
         getBGMVolume = function (self)
-            return self.bgm_volume
+            return bgm:getVolume()
         end,
 
         getEffectVolume = function (self)
-            return self.sfx_volume
+            return effects["select"]:getVolume()
         end,
 
         setBGMVolume = function (self, value)
