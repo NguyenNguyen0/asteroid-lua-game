@@ -16,12 +16,13 @@ function Game(save_data, sfx)
             setting = false
         },
         score = 0,
-        high_score = Global.high_score,
+        high_score = save_data,
         screen_text = {},
         game_over = false,
 
         saveGame = function (self)
             Global.writeJSON("save", { high_score = self.high_score })
+            Global.high_score = self.high_score
         end,
 
         changeGameState = function(self, state)
